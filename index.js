@@ -21,9 +21,14 @@ module.exports = exports = {
   // The first argument to log may be a string containing
   // printf-like string substitution patterns.
   log: function(){
-    Object.keys(arguments).forEach(function(key){
-      if(arguments[key] !== null && typeof arguments[key] === 'object') arguments[key] = prettyjson.render(arguments[key])
-    })
+    for (var i = 0, j = arguments.length; i < j; i++){
+      if(arguments[i] !== null && typeof arguments[i] === 'object') arguments[i] = prettyjson.render(arguments[i], {
+        indentation: 1,
+        inlineArrays: 1,
+        dashColor: 'yellow',
+        numberColor: 'blue'
+      })
+    }
     console.log.apply(this, arguments);
   },
 

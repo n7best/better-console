@@ -1,6 +1,8 @@
 var colors = require('colors');
 var util = require('util');
+var prettyjson = require('prettyjson');
 var logTable = require('./log_table');
+
 var countBuffer = {};
 
 function logWithColor(color, args, isError){
@@ -19,6 +21,9 @@ module.exports = exports = {
   // The first argument to log may be a string containing
   // printf-like string substitution patterns.
   log: function(){
+    Object.keys(arguments).forEach(function(key){
+      if(arguments[key] !== null && typeof arguments[key] === 'object') arguments[key] = prettyjson.render(arguments[key])
+    })
     console.log.apply(this, arguments);
   },
 
